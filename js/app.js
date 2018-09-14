@@ -32,8 +32,12 @@ Enemy.prototype.render = function() {
 // a handleInput() method.
 
 class Player {
-  constructor() {
-    
+  constructor(x, y, moving) {
+    this.x = x;
+    this.y = y;
+    this.speed = speed;
+    this.moving = moving;
+    this.sprite = '(place sprite here)';
   }
 }
 
