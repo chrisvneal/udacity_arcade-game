@@ -38,7 +38,7 @@ class Player {
     this.sprite = 'images/char-boy.png';
   }
 
-  // Update position of player
+  // update position of player on the screen
   updatePosition() {
     this.x = newXPosition;
     this.y = newYPosition;
@@ -47,6 +47,22 @@ class Player {
 
 
 
+  // render the player to the screen
+  renderPlayer() {
+
+  }
+
+
+
+  // make the player object move when 'keyup' event is fired
+  handleInput(move) {
+    
+  }
+
+  // place the player back at the starting point
+  backToStart() {
+    
+  }
 }
 
 
