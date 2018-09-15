@@ -37,6 +37,16 @@ class Player {
     this.y = y;
     this.sprite = 'images/char-boy.png';
   }
+
+  // Update position of player
+  updatePosition() {
+    this.x = newXPosition;
+    this.y = newYPosition;
+  }
+
+
+
+
 }
 
 
