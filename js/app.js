@@ -44,6 +44,14 @@ class Player {
     this.y = newYPosition;
   }
 
+  renderPlayer() {
+
+  }
+
+  handleInput() {
+    
+  }
+
 
 
 
