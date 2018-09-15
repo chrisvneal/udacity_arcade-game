@@ -37,33 +37,30 @@ class Player {
     this.y = y;
     this.sprite = 'images/char-boy.png';
   }
-
-  // update position of player on the screen
-  updatePosition() {
-    this.x = newXPosition;
-    this.y = newYPosition;
-  }
-
-
-
-
-  // render the player to the screen
-  renderPlayer() {
-
-  }
-
-
-
-  // make the player object move when 'keyup' event is fired
-  handleInput(move) {
-    
-  }
-
-  // place the player back at the starting point
-  backToStart() {
-    
-  }
 }
+
+// update position of player on the screen
+Player.prototype.updatePosition = function() {
+  this.x = newXPosition;
+    this.y = newYPosition;
+}
+
+// render the player to the screen
+Player.prototype.renderPlayer = function() {
+  
+}
+
+// make the player object move when 'keyup' event is fired
+Player.prototype.handleInput= function(direction) {
+  
+}
+
+// place the player back at the starting point
+Player.prototype.backToStart = function() {
+  
+}
+
+
 
 
 // Now instantiate your objects.
