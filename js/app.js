@@ -7,13 +7,9 @@ let blockMiddle = blockHeight / 2;
 
 // Enemies our player must avoid
 class Enemy {
-  constructor(x, y, speed) {
+  constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.speed = speed;
-
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
   };
 
@@ -27,13 +23,12 @@ Enemy.prototype.update = function(dt) {
   // which will ensure the game runs at the same speed for
   // all computers.
 
-  if (this.x < 500) {
-    this.x += blockWidth * 2;
-  } else {
-    console.log("I hit the wall");
+  // When the bug fully steps out canvas boundary, restart
+  if (this.x < blockWidth * 5) {
+    this.x += 20 * dt;
   }
-  
-  
+
+
 
 };
 
@@ -94,12 +89,6 @@ Player.prototype.handleInput = function(direction) {
       if (this.y < 300) {
         this.y += blockHeight;
       }
-
-      // console.log("position: " + this.y);
-
-      
-      // this.y += blockHeight;
-
       break;
   }
 }
@@ -112,17 +101,17 @@ Player.prototype.backToStart = function() {
 
 
 
-
-
 // Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
+
 // Place the player object in a variable called player
-
-
 const player = new Player((blockWidth * 2), (blockMiddle * 7));
-const enemy = new Enemy(0, 0);
 
-const allEnemies = [enemy];
+
+// Place all enemy objects in an array called allEnemies
+const enemy = new Enemy(0, 60);
+
+// const allEnemies = [enemy];
+const allEnemies = [new Enemy(0, 60), new Enemy(0, 65)];
 
 
 
