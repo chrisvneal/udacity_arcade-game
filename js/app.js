@@ -57,14 +57,14 @@ let game = {
 // let thresh = 1;
 
 // function checkForCollisions() {
-  
+
 
 //   for (let enemy of allEnemies) {
 //     // console.log(enemy);
-    
-  
+
+
 //   }
- 
+
 // }
 
 
@@ -73,23 +73,17 @@ let game = {
 
 // check for enemy & player collisions
 
-
-
-function checkForCollisions() {
-  for ( var index=0; index < allEnemies.length; index++) {
-    if ( allEnemies[index].x < player.x + 50 && allEnemies[index].x > player.x - 50 ){
-      if ( allEnemies[index].y < player.y + 45 && allEnemies[index].y > player.y - 45 ){
-        player.x = 200;
-        player.y = 400;
-        player.lives--;
-        if( player.lives === 0 ){
-          flag = 0;
-          player.score = 0;
-        }
+function checkCollisions() {
+  let thresh = 50;
+  for (let enemy of allEnemies) {
+    if (enemy.x < player.x + thresh && enemy.x > player.x - thresh) {
+      if (enemy.y < player.y + thresh && enemy.y > player.y - thresh) {
+        player.x = player.startXPos;
+        player.y = player.startYPos;
       };
     };
   }
-}
+} // end of checkForCollisions
 
 
 
