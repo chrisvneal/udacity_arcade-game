@@ -1,7 +1,7 @@
 // Place positions in variables
 let blockWidth = 101;
 let blockHeight = 83;
-let blockMiddle = blockHeight/2;
+let blockMiddle = blockHeight / 2;
 
 
 
@@ -61,16 +61,37 @@ Player.prototype.render = function() {
 Player.prototype.handleInput = function(direction) {
   switch (direction) {
     case "left":
-      this.x -= blockWidth;
+
+      if (this.x > 0) {
+        this.x -= blockWidth;
+      }
       break;
     case "right":
-      this.x += blockWidth;
+      if (this.x < 404) {
+        this.x += blockWidth;
+      }
       break;
     case "up":
-      this.y -= blockHeight;
+      if (this.y > 0) {
+        this.y -= blockHeight;
+
+        if (this.y == -41.5) {
+          // console.log("Game won");
+          // TODO: Create player 'game won' function
+        }
+        // console.log("position: " + this.y);
+      }
       break;
     case "down":
-      this.y += blockHeight;
+      if (this.y < 300) {
+        this.y += blockHeight;
+      }
+
+      // console.log("position: " + this.y);
+
+      
+      // this.y += blockHeight;
+
       break;
   }
 }
