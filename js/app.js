@@ -12,11 +12,11 @@ class Enemy {
     this.x = x;
     this.y = y;
     this.entryPoint = -90;
-    this.speed = Math.floor((Math.random() * 100) + speed);
+    this.speed = speed;
 
 
 
-    
+
     this.sprite = 'images/enemy-bug.png';
   };
 
@@ -28,6 +28,10 @@ const canvasBoundary = 505;
 function randomSpeed(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 }
+
+
+
+
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
@@ -50,16 +54,15 @@ Enemy.prototype.update = function(dt) {
 
 
 
-
+  // when enemy leaves the canvas, it enters again at entry point
   if (this.x >= canvasBoundary) {
-    this.x = this.entryPoint;
+    this.x = this.entryPoint;  
   } 
 
-  this.x += this.speed * dt;
+  this.x += Math.floor((Math.random() * (100 - 30)) + 30) * dt;
 
 
-
-  // When the bug is out of bounds, change the speed
+  // when the enemy leaves the boundary, give a different speed
 
 
 
@@ -150,11 +153,11 @@ const player = new Player();
 
 
 // initialize enemies (bugs) with start points and speed
-const enemy1 = new Enemy(-90, 60, 90);
+const enemy1 = new Enemy(-90, 60, 500);
 const enemy2 = new Enemy(-90, 140, 65);
 const enemy3 = new Enemy(-90, 220, 45);
-const enemy4 = new Enemy(-150, 155, 30);
-const enemy5 = new Enemy(-200, 160, 45);
+const enemy4 = new Enemy(-300, 155, 30);
+const enemy5 = new Enemy(-400, 89, 45);
 
 
 // put all enemies into an array
