@@ -40,7 +40,6 @@ class Enemy {
 
 let game = {
   score: 0,
-  difficulty: "easy",
   textScore: document.querySelector('.score-text'),
   textHits: document.querySelector('.hits-text'),
   lives: document.querySelector('.lives'),
