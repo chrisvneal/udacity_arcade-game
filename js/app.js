@@ -110,8 +110,11 @@ Player.prototype.backToStart = function() {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-/* TODO: create the parameters to position the player */
-let player = new Player((blockWidth * 2), (blockMiddle * 7));
+
+const player = new Player((blockWidth * 2), (blockMiddle * 7));
+const enemy = new Enemy(0, 0);
+
+const allEnemies = [enemy];
 
 
 
