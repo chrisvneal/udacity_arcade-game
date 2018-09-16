@@ -37,30 +37,38 @@ class Player {
     this.y = y;
     this.sprite = 'images/char-boy.png';
   }
+}
 
-  // Update position of player
-  updatePosition() {
-    this.x = newXPosition;
-    this.y = newYPosition;
-  }
+// update position of player on the screen
+Player.prototype.updatePosition = function() {
+  this.x = newXPosition;
+  this.y = newYPosition;
+}
 
-  renderPlayer() {
+// render the player to the screen
+Player.prototype.render = function() {
+  ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+}
 
-  }
-
-  handleInput() {
-    
-  }
-
-
-
+// make the player object move when 'keyup' event is fired
+Player.prototype.handleInput = function(direction) {
 
 }
+
+// place the player back at the starting point
+Player.prototype.backToStart = function() {
+
+}
+
+
 
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
+
+/* TODO: create the parameters to position the player */
+let player = new Player(0, 0);
 
 
 
