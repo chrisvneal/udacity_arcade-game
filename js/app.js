@@ -35,6 +35,18 @@ function randomSpeed(min, max) {
 }
 
 
+let game = {
+  score : 0,
+  textScore: document.querySelector('.score'),
+
+
+  addPoints: function(points) {
+    this.score += points;
+    this.textScore.innerHTML = this.score;
+  }
+}
+
+
 
 
 
@@ -64,6 +76,7 @@ Enemy.prototype.update = function(dt) {
     this.x = this.entryPoint;
     this.speed = Math.floor((Math.random() * (400 - 100)) + 100);
     // console.log(this.speed);
+    // game.addPoints(5);
   }
 
   this.x += this.speed * dt;
