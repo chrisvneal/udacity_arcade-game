@@ -39,11 +39,7 @@ class Enemy {
 
 let game = {
   score: 0,
-<<<<<<< HEAD
-  textScore: document.querySelector('.score'),
-=======
   textScore: document.querySelector('.score-text'),
->>>>>>> life_system
 
 
   addPoints: function(points, callback) {
@@ -261,15 +257,9 @@ const player = new Player();
 
 
 // initialize enemies (bugs) with start points and speed
-<<<<<<< HEAD
-const enemy1 = new Enemy(-90, 60, Math.floor((Math.random() * (330 - 60)) + 60));
-const enemy2 = new Enemy(-90, 140, Math.floor((Math.random() * (330 - 60)) + 60));
-const enemy3 = new Enemy(-90, 220, Math.floor((Math.random() * (330 - 60)) + 60));
-=======
 const enemy1 = new Enemy(-90, 41.5, Math.floor((Math.random() * (330 - 60)) + 60));
 const enemy2 = new Enemy(-90, 124.5, Math.floor((Math.random() * (330 - 60)) + 60));
 const enemy3 = new Enemy(-90, 207.5, Math.floor((Math.random() * (330 - 60)) + 60));
->>>>>>> life_system
 
 
 // put all enemies into an array
