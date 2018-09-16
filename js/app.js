@@ -40,6 +40,7 @@ class Enemy {
 
 let game = {
   score: 0,
+  difficulty: "easy",
   textScore: document.querySelector('.score-text'),
   textHits: document.querySelector('.hits-text'),
   lives: document.querySelector('.lives'),
@@ -57,9 +58,19 @@ let game = {
 
   },
 
-  addPoints: function(points, ) {
+  addPoints: function(points) {
     this.score += points;
+
+    if (this.score > 2) {
+this.difficulty = "medium";
+    }
+
+    if (this.score > 5) {
+      this.difficulty = "hard";
+
+    }
     this.textScore.innerHTML = this.score;
+    console.log("difficulty:" + this.difficulty);
   },
 
   removeLife: function() {
@@ -94,17 +105,17 @@ function checkCollisions() {
 
         console.log(player.hits);
         game.removeLife();
-        
+
         if (player.hits == 4) {
 
           document.querySelector('.hits-text').innerHTML = player.hits;
-          
+
 
           alert(`Game over! You were hit ${player.hits} times!`);
 
 
           game.reset();
-            
+
         }
 
 
@@ -112,8 +123,19 @@ function checkCollisions() {
       };
     };
   }
-} 
-
+}
+function adjustDifficulty(difficulty) {
+  switch (difficulty) {
+    case "medium":
+      this.speed = Math.floor((Math.random() * (250 - 101)) + 101);
+      break;
+    case "hard":
+      this.speed = Math.floor((Math.random() * (500 - 350)) + 350);
+      break;
+    default:
+      this.speed = Math.floor((Math.random() * (100 - 60)) + 60);
+  }
+}
 
 
 // Update the enemy's position, required method for game
@@ -139,13 +161,23 @@ Enemy.prototype.update = function(dt) {
 
   // checkForCollision();
 
+  
+
 
 
 
   // when enemy leaves the canvas, it enters again at entry point
   if (this.x >= canvasBoundary) {
     this.x = this.entryPoint - 100;
-    this.speed = Math.floor((Math.random() * (450 - 180)) + 100);
+
+
+    if (game.score > 5) {
+      adjustDifficulty("hard");
+    } else if (game.score > 2) {
+      adjustDifficulty("medium");
+    }
+
+    // this.speed = Math.floor((Math.random() * (450 - 180)) + 100);
     // console.log(this.speed);
     // game.addPoints(5);
   }
