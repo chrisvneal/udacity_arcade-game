@@ -11,6 +11,8 @@ const canvasBoundary = 505;
 
 
 
+
+
 // Enemies our player must avoid
 class Enemy {
   constructor(x, y, speed) {
@@ -30,19 +32,25 @@ class Enemy {
 
 
 
-function randomSpeed(min, max) {
-  return Math.floor(Math.random() * (max - min) + min);
-}
+// function randomSpeed(min, max) {
+//   return Math.floor(Math.random() * (max - min) + min);
+// }
 
 
 let game = {
-  score : 0,
+  score: 0,
   textScore: document.querySelector('.score'),
 
 
-  addPoints: function(points) {
+  addPoints: function(points, callback) {
     this.score += points;
     this.textScore.innerHTML = this.score;
+
+    // console.log(callback);
+
+    // callback();
+
+    // console.log(player.x, player.y);
   }
 }
 
@@ -106,19 +114,13 @@ Enemy.prototype.render = function() {
 
 class Player {
   constructor() {
-    this.startXPos = (blockWidth * 2)
-    this.startYPos = (blockMiddle * 7)
+    // this.startXPos = (blockWidth * 2);
+    // this.startYPos = (blockMiddle * 7); 
+    this.startXPos = 202;
+    this.startYPos = 290.5;
     this.x = this.startXPos;
     this.y = this.startYPos;
     this.sprite = 'images/char-boy.png';
-
-
-
-
-
-
-
-
 
 
 
@@ -138,8 +140,16 @@ Player.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
 
+// place the player back at the starting point
+Player.prototype.backToStart = function() {
+  this.x = this.startXPos;
+  this.y = this.startYPos;
+}
+
 // make the player object move when 'keyup' event is fired
 Player.prototype.handleInput = function(direction) {
+  // console.log("vertical: " + this.x + ", horizontal: " + this.y);
+
   switch (direction) {
     case "left":
 
@@ -153,13 +163,20 @@ Player.prototype.handleInput = function(direction) {
       }
       break;
     case "up":
-      if (this.y > 0) {
-        this.y -= blockHeight;
+      if (this.y == 41.5) {
+        // console.log("Game won!");
 
-        if (this.y == -41.5) {
-          // console.log("Game won");
-          // TODO: Create player 'game won' function
-        }
+        game.addPoints(1);
+        // console.log("You did it! " + this.y);
+
+        setTimeout(function() {
+          player.backToStart();
+        }, 510);
+
+      }
+
+      if (this.y > -41.5) {
+        this.y -= blockHeight;
       }
       break;
     case "down":
@@ -170,11 +187,11 @@ Player.prototype.handleInput = function(direction) {
   }
 }
 
-// place the player back at the starting point
-Player.prototype.backToStart = function() {
-  this.x = this.startXPos;
-  this.y = this.startYPos;
-}
+
+
+
+
+
 
 
 
@@ -203,9 +220,9 @@ const player = new Player();
 
 
 
-let x = -90;
-let y = Math.floor((Math.random() * (200 - 60)) + 60);
-let speed = Math.floor((Math.random() * (250 - 60)) + 60);
+// let x = -90;
+// let y = Math.floor((Math.random() * (200 - 60)) + 60);
+// let randomSpeed = Math.floor((Math.random() * (330 - 60)) + 60);
 
 
 
@@ -214,9 +231,9 @@ let speed = Math.floor((Math.random() * (250 - 60)) + 60);
 
 
 // initialize enemies (bugs) with start points and speed
-const enemy1 = new Enemy(-90, 60, 330);
-const enemy2 = new Enemy(-90, 140, 150);
-const enemy3 = new Enemy(-90, 220, 205);
+const enemy1 = new Enemy(-90, 60, Math.floor((Math.random() * (330 - 60)) + 60));
+const enemy2 = new Enemy(-90, 140, Math.floor((Math.random() * (330 - 60)) + 60));
+const enemy3 = new Enemy(-90, 220, Math.floor((Math.random() * (330 - 60)) + 60));
 
 
 // put all enemies into an array
