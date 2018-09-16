@@ -6,6 +6,11 @@ let blockMiddle = blockHeight / 2;
 
 
 
+const canvasBoundary = 505;
+
+
+
+
 // Enemies our player must avoid
 class Enemy {
   constructor(x, y, speed) {
@@ -23,7 +28,7 @@ class Enemy {
 
 };
 
-const canvasBoundary = 505;
+
 
 function randomSpeed(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
@@ -56,10 +61,11 @@ Enemy.prototype.update = function(dt) {
 
   // when enemy leaves the canvas, it enters again at entry point
   if (this.x >= canvasBoundary) {
-    this.x = this.entryPoint;  
-  } 
+    this.x = this.entryPoint;
+  }
 
-  this.x += Math.floor((Math.random() * (100 - 30)) + 30) * dt;
+  this.x += this.speed * dt;
+  // this.x += Math.floor((Math.random() * (100 - 30)) + 30) * dt;
 
 
   // when the enemy leaves the boundary, give a different speed
@@ -68,7 +74,7 @@ Enemy.prototype.update = function(dt) {
 
 };
 
-console.log(canvasBoundary);
+// console.log(canvasBoundary);
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
@@ -80,11 +86,29 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 
+
+
+
 class Player {
   constructor() {
-    this.x = (blockWidth * 2);
-    this.y = (blockMiddle * 7);
+    this.startXPos = (blockWidth * 2)
+    this.startYPos = (blockMiddle * 7)
+    this.x = this.startXPos;
+    this.y = this.startYPos;
     this.sprite = 'images/char-boy.png';
+
+
+
+
+
+
+
+
+
+
+
+
+
   }
 }
 
@@ -121,7 +145,6 @@ Player.prototype.handleInput = function(direction) {
           // console.log("Game won");
           // TODO: Create player 'game won' function
         }
-        // console.log("position: " + this.y);
       }
       break;
     case "down":
@@ -134,11 +157,27 @@ Player.prototype.handleInput = function(direction) {
 
 // place the player back at the starting point
 Player.prototype.backToStart = function() {
-
+  this.x = this.startXPos;
+  this.y = this.startYPos;
 }
 
 
-// Now instantiate your objects.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Instantiate objects (create player & enemies)
+
 
 // Place the player object in a variable called player
 const player = new Player();
@@ -149,38 +188,24 @@ const player = new Player();
 
 
 
+let x = -90;
+let y = Math.floor((Math.random() * (200 - 60)) + 60);
+let speed = Math.floor((Math.random() * (250 - 60)) + 60);
+
+
+
+// Build number of enemies
 
 
 
 // initialize enemies (bugs) with start points and speed
-const enemy1 = new Enemy(-90, 60, 500);
-const enemy2 = new Enemy(-90, 140, 65);
-const enemy3 = new Enemy(-90, 220, 45);
-const enemy4 = new Enemy(-300, 155, 30);
-const enemy5 = new Enemy(-400, 89, 45);
+const enemy1 = new Enemy(-90, 60, 330);
+const enemy2 = new Enemy(-90, 140, 150);
+const enemy3 = new Enemy(-90, 220, 205);
 
 
 // put all enemies into an array
-const allEnemies = [enemy1, enemy2, enemy3, enemy4, enemy5];
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+const allEnemies = [enemy1, enemy2, enemy3];
 
 
 
