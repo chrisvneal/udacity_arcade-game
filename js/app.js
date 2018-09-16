@@ -25,7 +25,9 @@ Enemy.prototype.update = function(dt) {
 
   // When the bug fully steps out canvas boundary, restart
   if (this.x < blockWidth * 5) {
-    this.x += 20 * dt;
+    this.x += 200 * dt;
+  } else {
+    this.x = -90;
   }
 
 
@@ -42,9 +44,11 @@ Enemy.prototype.render = function() {
 // a handleInput() method.
 
 class Player {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
+  constructor() {
+    // this.x = x;
+    // this.y = y;
+    this.x = (blockWidth * 2);
+    this.y = (blockMiddle * 7);
     this.sprite = 'images/char-boy.png';
   }
 }
@@ -99,19 +103,38 @@ Player.prototype.backToStart = function() {
 }
 
 
-
-
 // Now instantiate your objects.
 
 // Place the player object in a variable called player
-const player = new Player((blockWidth * 2), (blockMiddle * 7));
+const player = new Player();
 
 
 // Place all enemy objects in an array called allEnemies
 const enemy = new Enemy(0, 60);
 
 // const allEnemies = [enemy];
-const allEnemies = [new Enemy(0, 60), new Enemy(0, 65)];
+const allEnemies = [enemy];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
