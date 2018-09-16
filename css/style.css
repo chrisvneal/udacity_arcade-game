@@ -1,3 +1,16 @@
 body {
     text-align: center;
 }
+
+.lives img {
+  /* border: 1px solid blue; */
+  width: 50px;
+  height: 60px;
+  margin: -25px 0 -30px;
+}
+
+.score {
+  font-family: sans-serif;
+  text-transform: lowercase;
+  font-weight: lighter;
+}

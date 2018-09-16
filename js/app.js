@@ -39,7 +39,11 @@ class Enemy {
 
 let game = {
   score: 0,
+<<<<<<< HEAD
   textScore: document.querySelector('.score'),
+=======
+  textScore: document.querySelector('.score-text'),
+>>>>>>> life_system
 
 
   addPoints: function(points, callback) {
@@ -54,7 +58,36 @@ let game = {
   }
 }
 
+// let thresh = 1;
 
+// function checkForCollisions() {
+
+
+//   for (let enemy of allEnemies) {
+//     // console.log(enemy);
+
+
+//   }
+
+// }
+
+
+
+
+
+// check for enemy & player collisions
+
+function checkCollisions() {
+  let thresh = 50;
+  for (let enemy of allEnemies) {
+    if (enemy.x < player.x + thresh && enemy.x > player.x - thresh) {
+      if (enemy.y < player.y + thresh && enemy.y > player.y - thresh) {
+        player.x = player.startXPos;
+        player.y = player.startYPos;
+      };
+    };
+  }
+} // end of checkForCollisions
 
 
 
@@ -75,6 +108,11 @@ Enemy.prototype.update = function(dt) {
 
 
   // speed = (pick up by this much, pretty muchh in pixels)
+
+
+  // console.log(player.y);
+
+  // checkForCollision();
 
 
 
@@ -130,10 +168,10 @@ class Player {
 }
 
 // update position of player on the screen
-Player.prototype.updatePosition = function() {
-  this.x = newXPosition;
-  this.y = newYPosition;
-}
+// Player.prototype.update = function() {
+//   this.x = newXPosition;
+//   this.y = newYPosition;
+// }
 
 // render the player to the screen
 Player.prototype.render = function() {
@@ -148,7 +186,6 @@ Player.prototype.backToStart = function() {
 
 // make the player object move when 'keyup' event is fired
 Player.prototype.handleInput = function(direction) {
-  // console.log("vertical: " + this.x + ", horizontal: " + this.y);
 
   switch (direction) {
     case "left":
@@ -185,19 +222,12 @@ Player.prototype.handleInput = function(direction) {
       }
       break;
   }
+
+  // console.log("enemy3 position: " + Math.floor(enemy3.x));
+
+  console.log("x: " + this.x + ", y: " + this.y);
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -231,9 +261,15 @@ const player = new Player();
 
 
 // initialize enemies (bugs) with start points and speed
+<<<<<<< HEAD
 const enemy1 = new Enemy(-90, 60, Math.floor((Math.random() * (330 - 60)) + 60));
 const enemy2 = new Enemy(-90, 140, Math.floor((Math.random() * (330 - 60)) + 60));
 const enemy3 = new Enemy(-90, 220, Math.floor((Math.random() * (330 - 60)) + 60));
+=======
+const enemy1 = new Enemy(-90, 41.5, Math.floor((Math.random() * (330 - 60)) + 60));
+const enemy2 = new Enemy(-90, 124.5, Math.floor((Math.random() * (330 - 60)) + 60));
+const enemy3 = new Enemy(-90, 207.5, Math.floor((Math.random() * (330 - 60)) + 60));
+>>>>>>> life_system
 
 
 // put all enemies into an array
