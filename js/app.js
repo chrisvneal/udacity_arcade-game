@@ -52,7 +52,20 @@ Player.prototype.render = function() {
 
 // make the player object move when 'keyup' event is fired
 Player.prototype.handleInput = function(direction) {
-
+  switch (direction) {
+    case "left":
+      this.x -= 50;
+      break;
+    case "right":
+      this.x += 50;
+      break;
+    case "up":
+      this.y -= 50;
+      break;
+    case "down":
+      this.y += 50;
+      break;
+  }
 }
 
 // place the player back at the starting point
