@@ -13,6 +13,8 @@ const canvasBoundary = 505;
 
 
 
+
+
 // Enemies our player must avoid
 class Enemy {
   constructor(x, y, speed) {
@@ -45,10 +47,13 @@ let game = {
   textScore: document.querySelector('.score-text'),
   textHits: document.querySelector('.hits-text'),
   lives: document.querySelector('.lives'),
-  livesLost: 0,
+  livesLost: 1, // to offset image file location in array
 
   reset: function() {
     this.score = 0;
+
+
+
     this.textScore.innerHTML = this.score;
 
     player.hits = 0;
@@ -63,10 +68,10 @@ let game = {
 
     }
     // put the hearts back
-    
 
-    
-    
+
+
+
 
   },
 
@@ -75,69 +80,98 @@ let game = {
 
     if (game.score > 5) {
       changeDifficulty("hard");
-    }
-    else if (game.score > 2) {
+    } else if (game.score > 2) {
       changeDifficulty("medium");
-    } 
+    }
 
-// console.log("Difficulty: " + game.difficulty);
-    
+    // console.log("Difficulty: " + game.difficulty);
+
     this.textScore.innerHTML = this.score;
     // console.log("difficulty:" + this.difficulty);
   },
 
-  removeLife: function() {
+  removeHeart: function() {
     // player.hits++;
     document.querySelector('.hits-text').innerHTML = player.hits;
 
-    if (this.lives.children.length > 0) {
+    console.log("node name: " + game.lives.childNodes[0].nodeName);
 
-      // remove every other element in the 'array', the 'img' element
-      this.lives.removeChild(this.lives.childNodes[this.livesLost + 1]);
-      this.livesLost += 1;
+    // remove every other element in the 'array', the 'img' element
+
+
+
+    this.livesLost += 1;
+
+    if (this.lives.childNodes[0].nodeName == "IMG") {
+      this.lives.removeChild(this.lives.childNodes[3]);
+
+    } else {
+      console.log("This isn't a child node");
     }
+    // this.lives.removeChild(this.lives.childNodes[this.livesLost + 1]);
 
-    console.log("heart count: "  + game.lives.children.length);
+
+
+    console.log("heart count: " + game.lives.children.length);
     // console.log("heart count: "  + this.lives.children.length);
   },
 
   insertHearts: function(hearts) {
     for (let i = 0; i < hearts; i++) {
       let heartImage = "images/Heart.png";
-  
-  
+
+
 
       let heartElement = document.createElement('img');
       heartElement.setAttribute('src', heartImage);
-  
-      game.lives.appendChild(heartElement); 
-    }
-  }
 
-  //TODO: Create function for when game is won
+      game.lives.appendChild(heartElement);
+    }
+  },
+
+
 }
+
+game.insertHearts(4);
 
 
 
 // check for enemy & player collisions
 
 // console.log("heart count: "  + game.heartCount);
-console.log("heart count: "  + game.lives.children.length);
+// console.log("heart count: "  + game.lives.children.length);
 
 
 function checkCollisions() {
-  let thresh = 60;
+  let thresh = 50; // hit area threshold
 
   for (let enemy of allEnemies) {
+
+    // if an enemy is within close range of the player...
     if (enemy.x < player.x + thresh && enemy.x > player.x - thresh) {
       if (enemy.y < player.y + thresh && enemy.y > player.y - thresh) {
-        player.x = player.startXPos;
-        player.y = player.startYPos;
-        player.hits++;
-        // document.querySelector('.hits-text').innerHTML = player.hits;
 
-        // console.log(player.hits);
-        game.removeLife();
+
+
+
+        // place player back at the start
+        player.backToStart();
+
+
+        // increase player hit count
+        player.hits++;
+
+
+
+
+        // remove a heart (life)
+        game.removeHeart();
+
+
+
+
+
+
 
         if (player.hits == 4) {
 
@@ -160,12 +194,12 @@ function checkCollisions() {
 
 function changeDifficulty(difficulty) {
   switch (difficulty) {
-    
+
     case "medium":
-    game.difficulty = difficulty;
+      game.difficulty = difficulty;
       break;
-      case "hard":
-    game.difficulty = difficulty;
+    case "hard":
+      game.difficulty = difficulty;
       break;
   }
 }
@@ -215,10 +249,10 @@ Enemy.prototype.update = function(dt) {
       this.speed = Math.floor((Math.random() * (700 - 520)) + 520);
     }
 
-    
 
 
-    
+
+
 
     // this.speed = Math.floor((Math.random() * (450 - 180)) + 100);
     // console.log(this.speed);
@@ -270,6 +304,9 @@ Player.prototype.update = function() {
   if (player.hits == 4) {
     game.reset();
   }
+
+
+
 }
 
 // render the player to the screen
