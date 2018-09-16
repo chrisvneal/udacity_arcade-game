@@ -47,7 +47,7 @@ Player.prototype.updatePosition = function() {
 
 // render the player to the screen
 Player.prototype.renderPlayer = function() {
-
+  ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
 
 // make the player object move when 'keyup' event is fired
