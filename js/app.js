@@ -38,6 +38,7 @@ class Enemy {
 
 
 
+
 let game = {
   score: 0,
   difficulty: "easy",
@@ -54,7 +55,18 @@ let game = {
 
     this.textHits.innerHTML = player.hits;
 
-    // TODO: Put the hearts back on the page
+
+
+    if (game.lives.children.length == 0) {
+      game.insertHearts(4);
+      console.log("Game reset; Heart count: " + this.lives.children.length);
+
+    }
+    // put the hearts back
+    
+
+    
+    
 
   },
 
@@ -68,7 +80,7 @@ let game = {
       changeDifficulty("medium");
     } 
 
-console.log("Difficulty: " + game.difficulty);
+// console.log("Difficulty: " + game.difficulty);
     
     this.textScore.innerHTML = this.score;
     // console.log("difficulty:" + this.difficulty);
@@ -84,6 +96,22 @@ console.log("Difficulty: " + game.difficulty);
       this.lives.removeChild(this.lives.childNodes[this.livesLost + 1]);
       this.livesLost += 1;
     }
+
+    console.log("heart count: "  + game.lives.children.length);
+    // console.log("heart count: "  + this.lives.children.length);
+  },
+
+  insertHearts: function(hearts) {
+    for (let i = 0; i < hearts; i++) {
+      let heartImage = "images/Heart.png";
+  
+  
+
+      let heartElement = document.createElement('img');
+      heartElement.setAttribute('src', heartImage);
+  
+      game.lives.appendChild(heartElement); 
+    }
   }
 
   //TODO: Create function for when game is won
@@ -92,6 +120,10 @@ console.log("Difficulty: " + game.difficulty);
 
 
 // check for enemy & player collisions
+
+// console.log("heart count: "  + game.heartCount);
+console.log("heart count: "  + game.lives.children.length);
+
 
 function checkCollisions() {
   let thresh = 60;
@@ -104,7 +136,7 @@ function checkCollisions() {
         player.hits++;
         // document.querySelector('.hits-text').innerHTML = player.hits;
 
-        console.log(player.hits);
+        // console.log(player.hits);
         game.removeLife();
 
         if (player.hits == 4) {
@@ -112,7 +144,7 @@ function checkCollisions() {
           document.querySelector('.hits-text').innerHTML = player.hits;
 
 
-          alert(`Game over! You were hit ${player.hits} times!`);
+          // alert(`Game over! You were hit ${player.hits} times!`);
 
 
           game.reset();
