@@ -54,7 +54,42 @@ let game = {
   }
 }
 
+// let thresh = 1;
 
+// function checkForCollisions() {
+  
+
+//   for (let enemy of allEnemies) {
+//     // console.log(enemy);
+    
+  
+//   }
+ 
+// }
+
+
+
+
+
+// check for enemy & player collisions
+
+
+
+function checkForCollisions() {
+  for ( var index=0; index < allEnemies.length; index++) {
+    if ( allEnemies[index].x < player.x + 50 && allEnemies[index].x > player.x - 50 ){
+      if ( allEnemies[index].y < player.y + 45 && allEnemies[index].y > player.y - 45 ){
+        player.x = 200;
+        player.y = 400;
+        player.lives--;
+        if( player.lives === 0 ){
+          flag = 0;
+          player.score = 0;
+        }
+      };
+    };
+  }
+}
 
 
 
@@ -75,6 +110,11 @@ Enemy.prototype.update = function(dt) {
 
 
   // speed = (pick up by this much, pretty muchh in pixels)
+
+
+  // console.log(player.y);
+
+  // checkForCollision();
 
 
 
@@ -130,10 +170,10 @@ class Player {
 }
 
 // update position of player on the screen
-Player.prototype.updatePosition = function() {
-  this.x = newXPosition;
-  this.y = newYPosition;
-}
+// Player.prototype.update = function() {
+//   this.x = newXPosition;
+//   this.y = newYPosition;
+// }
 
 // render the player to the screen
 Player.prototype.render = function() {
@@ -148,7 +188,6 @@ Player.prototype.backToStart = function() {
 
 // make the player object move when 'keyup' event is fired
 Player.prototype.handleInput = function(direction) {
-  // console.log("vertical: " + this.x + ", horizontal: " + this.y);
 
   switch (direction) {
     case "left":
@@ -185,19 +224,12 @@ Player.prototype.handleInput = function(direction) {
       }
       break;
   }
+
+  // console.log("enemy3 position: " + Math.floor(enemy3.x));
+
+  console.log("x: " + this.x + ", y: " + this.y);
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -231,9 +263,9 @@ const player = new Player();
 
 
 // initialize enemies (bugs) with start points and speed
-const enemy1 = new Enemy(-90, 60, Math.floor((Math.random() * (330 - 60)) + 60));
-const enemy2 = new Enemy(-90, 140, Math.floor((Math.random() * (330 - 60)) + 60));
-const enemy3 = new Enemy(-90, 220, Math.floor((Math.random() * (330 - 60)) + 60));
+const enemy1 = new Enemy(-90, 41.5, Math.floor((Math.random() * (330 - 60)) + 60));
+const enemy2 = new Enemy(-90, 124.5, Math.floor((Math.random() * (330 - 60)) + 60));
+const enemy3 = new Enemy(-90, 207.5, Math.floor((Math.random() * (330 - 60)) + 60));
 
 
 // put all enemies into an array
