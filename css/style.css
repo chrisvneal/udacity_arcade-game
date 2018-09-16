@@ -6,7 +6,7 @@ body {
   /* border: 1px solid blue; */
   width: 50px;
   height: 60px;
-  margin: -25px 0 -30px;
+  /* margin: -25px 0 -30px; */
 }
 
 .score, .hits {
@@ -21,4 +21,9 @@ body {
   display: flex;
   width: 50%;
   margin: 0 auto;
+}
+
+.lives {
+  height: 60px;
+  margin-bottom: -30px;
 }

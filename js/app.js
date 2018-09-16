@@ -43,7 +43,7 @@ let game = {
   textScore: document.querySelector('.score-text'),
   textHits: document.querySelector('.hits-text'),
   lives: document.querySelector('.lives'),
-  ib: 1,
+  livesLost: 0,
   
 
 
@@ -60,17 +60,22 @@ let game = {
 
   removeLife: function() { 
 
-    console.log(this.lives);
+    // console.log(this.lives);
 
     
     
     if (this.lives.children.length > 0) {
       
-      this.lives.removeChild(this.lives.childNodes[this.ib]); 
-      this.ib+=1;  
-    }
+      this.lives.removeChild(this.lives.childNodes[this.livesLost + 1]); 
+      this.livesLost+=1;  
 
-    console.log(this.lives.children.length);
+      if (game.livesLost == 4) {
+        // console.log("Game over!");
+        // TODO: create reset function
+      }
+    } 
+
+    // console.log(this.lives.children.length);
   }
 }
 
@@ -103,7 +108,7 @@ function checkCollisions() {
         player.hits++;
         document.querySelector('.hits-text').innerHTML = player.hits;
 
-        console.log("hit");
+        // console.log("hit");
         game.removeLife();
       };
     };
@@ -173,27 +178,20 @@ Enemy.prototype.render = function() {
 
 class Player {
   constructor() {
-    // this.startXPos = (blockWidth * 2);
-    // this.startYPos = (blockMiddle * 7); 
     this.startXPos = 202;
     this.startYPos = 290.5;
     this.x = this.startXPos;
     this.y = this.startYPos;
     this.sprite = 'images/char-boy.png';
     this.hits = 0;
-
-
-
-
-
   }
 }
 
 // update position of player on the screen
-// Player.prototype.update = function() {
-//   this.x = newXPosition;
-//   this.y = newYPosition;
-// }
+Player.prototype.update = function() {
+  this.x = newXPosition;
+  this.y = newYPosition;
+}
 
 // render the player to the screen
 Player.prototype.render = function() {
