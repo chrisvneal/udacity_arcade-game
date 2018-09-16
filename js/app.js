@@ -46,7 +46,7 @@ Player.prototype.updatePosition = function() {
 }
 
 // render the player to the screen
-Player.prototype.renderPlayer = function() {
+Player.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
 
@@ -68,7 +68,7 @@ Player.prototype.backToStart = function() {
 // Place the player object in a variable called player
 
 /* TODO: create the parameters to position the player */
-let player = new Player();
+let player = new Player(0, 0);
 
 
 
