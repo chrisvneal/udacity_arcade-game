@@ -37,9 +37,14 @@ class Enemy {
 // }
 
 
+
 let game = {
   score: 0,
   textScore: document.querySelector('.score-text'),
+  textHits: document.querySelector('.hits-text'),
+  lives: document.querySelector('.lives'),
+  ib: 1,
+  
 
 
   addPoints: function(points, callback) {
@@ -51,6 +56,21 @@ let game = {
     // callback();
 
     // console.log(player.x, player.y);
+  },
+
+  removeLife: function() { 
+
+    console.log(this.lives);
+
+    
+    
+    if (this.lives.children.length > 0) {
+      
+      this.lives.removeChild(this.lives.childNodes[this.ib]); 
+      this.ib+=1;  
+    }
+
+    console.log(this.lives.children.length);
   }
 }
 
@@ -74,12 +94,17 @@ let game = {
 // check for enemy & player collisions
 
 function checkCollisions() {
-  let thresh = 50;
+  let thresh = 60;
   for (let enemy of allEnemies) {
     if (enemy.x < player.x + thresh && enemy.x > player.x - thresh) {
       if (enemy.y < player.y + thresh && enemy.y > player.y - thresh) {
         player.x = player.startXPos;
         player.y = player.startYPos;
+        player.hits++;
+        document.querySelector('.hits-text').innerHTML = player.hits;
+
+        console.log("hit");
+        game.removeLife();
       };
     };
   }
@@ -144,7 +169,7 @@ Enemy.prototype.render = function() {
 // a handleInput() method.
 
 
-
+// console.log(game.lives);
 
 class Player {
   constructor() {
@@ -155,6 +180,7 @@ class Player {
     this.x = this.startXPos;
     this.y = this.startYPos;
     this.sprite = 'images/char-boy.png';
+    this.hits = 0;
 
 
 
@@ -221,7 +247,7 @@ Player.prototype.handleInput = function(direction) {
 
   // console.log("enemy3 position: " + Math.floor(enemy3.x));
 
-  console.log("x: " + this.x + ", y: " + this.y);
+  // console.log("x: " + this.x + ", y: " + this.y);
 
 }
 
