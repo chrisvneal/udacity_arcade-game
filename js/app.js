@@ -1,3 +1,10 @@
+// Place positions in variables
+let blockWidth = 101;
+let blockHeight = 83;
+let blockMiddle = blockHeight/2;
+
+
+
 // Enemies our player must avoid
 class Enemy {
   constructor(x, y, speed) {
@@ -54,16 +61,16 @@ Player.prototype.render = function() {
 Player.prototype.handleInput = function(direction) {
   switch (direction) {
     case "left":
-      this.x -= 50;
+      this.x -= blockWidth;
       break;
     case "right":
-      this.x += 50;
+      this.x += blockWidth;
       break;
     case "up":
-      this.y -= 50;
+      this.y -= blockHeight;
       break;
     case "down":
-      this.y += 50;
+      this.y += blockHeight;
       break;
   }
 }
@@ -76,12 +83,14 @@ Player.prototype.backToStart = function() {
 
 
 
+
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
 /* TODO: create the parameters to position the player */
-let player = new Player(0, 0);
+let player = new Player((blockWidth * 2), (blockMiddle * 7));
 
 
 
