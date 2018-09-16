@@ -9,8 +9,16 @@ body {
   margin: -25px 0 -30px;
 }
 
-.score {
+.score, .hits {
   font-family: sans-serif;
   text-transform: lowercase;
   font-weight: lighter;
+  /* border: 1px solid red; */
+  flex: 1;
+}
+
+.gameData {
+  display: flex;
+  width: 50%;
+  margin: 0 auto;
 }
