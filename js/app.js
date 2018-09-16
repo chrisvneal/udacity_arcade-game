@@ -18,13 +18,6 @@ class Enemy {
 
 };
 
-// let colBoundary = blockWidth * 5;
-
-
-
-
-
-
 
 
 function randomSpeed(min, max) {
@@ -43,7 +36,7 @@ Enemy.prototype.update = function(dt) {
     this.x += (this.speed * dt);
   } else {
     this.x = -90;
-    this.speed = randomSpeed(50, 300);
+    this.speed = randomSpeed(70, 300);
   }
 
 
@@ -136,20 +129,22 @@ const player = new Player();
 
 
 
-
+// create the enemies
 
 
 
 
 
 // Place all enemy objects in an array called allEnemies
-const enemy1 = new Enemy(83, 60, 90);
-const enemy2 = new Enemy(83, 140, 65);
-const enemy3 = new Enemy(83, 220, 45);
+const enemy1 = new Enemy(-90, 60, 90);
+const enemy2 = new Enemy(-90, 140, 65);
+const enemy3 = new Enemy(-90, 220, 45);
+const enemy4 = new Enemy(-150, 155, 45);
+const enemy5 = new Enemy(-200, 160, 45);
 
 
 // const allEnemies = [enemy];
-const allEnemies = [enemy1, enemy2, enemy3];
+const allEnemies = [enemy1, enemy2, enemy3, enemy4, enemy5];
 
 
 
@@ -189,8 +184,7 @@ const allEnemies = [enemy1, enemy2, enemy3];
 
 
 
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
+// Handle player movement; add event listener to 'key up'
 document.addEventListener('keyup', function(e) {
   var allowedKeys = {
     37: 'left',
