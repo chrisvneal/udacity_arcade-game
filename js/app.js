@@ -5,16 +5,20 @@ let blockMiddle = blockHeight / 2;
 
 
 
+
 // Enemies our player must avoid
 class Enemy {
-  constructor(x, y) {
+  constructor(x, y, speed) {
     this.x = x;
     this.y = y;
+    this.speed = Math.floor((Math.random() * 250) + speed);
     this.sprite = 'images/enemy-bug.png';
   };
 
 
 };
+
+// let colBoundary = blockWidth * 5;
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
@@ -25,7 +29,7 @@ Enemy.prototype.update = function(dt) {
 
   // When the bug fully steps out canvas boundary, restart
   if (this.x < blockWidth * 5) {
-    this.x += 200 * dt;
+    this.x += (this.speed * dt);
   } else {
     this.x = -90;
   }
@@ -37,6 +41,7 @@ Enemy.prototype.update = function(dt) {
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+  // console.log(randomSpeed());
 };
 
 // Now write your own player class
@@ -45,8 +50,6 @@ Enemy.prototype.render = function() {
 
 class Player {
   constructor() {
-    // this.x = x;
-    // this.y = y;
     this.x = (blockWidth * 2);
     this.y = (blockMiddle * 7);
     this.sprite = 'images/char-boy.png';
@@ -109,15 +112,58 @@ Player.prototype.backToStart = function() {
 const player = new Player();
 
 
+
+
+
+
+
+function randomNumGenerator(purpose) {
+  switch(purpose) {
+    case "startPos":
+      return Math.floor((Math.random() * -200) + 30);
+      break;
+    case "speed":
+      return Math.floor((Math.random() * 5) + 50);
+      break;
+    default:
+      return;
+
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
 // Place all enemy objects in an array called allEnemies
-const enemy1 = new Enemy(0, 60);
-const enemy2 = new Enemy(0, 100);
-const enemy3 = new Enemy(0, 156);
-const enemy4 = new Enemy(0, 185);
-const enemy5 = new Enemy(0, 225);
+const enemy1 = new Enemy(randomNumGenerator("startPos"), 60, 90);
+const enemy2 = new Enemy(randomNumGenerator("startPos"), 100, 65);
+const enemy3 = new Enemy(randomNumGenerator("startPos"), 156, 45);
+
 
 // const allEnemies = [enemy];
-const allEnemies = [enemy1, enemy2, enemy3, enemy4, enemy5];
+const allEnemies = [enemy1, enemy2, enemy3];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
