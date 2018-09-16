@@ -110,10 +110,14 @@ const player = new Player();
 
 
 // Place all enemy objects in an array called allEnemies
-const enemy = new Enemy(0, 60);
+const enemy1 = new Enemy(0, 60);
+const enemy2 = new Enemy(0, 100);
+const enemy3 = new Enemy(0, 156);
+const enemy4 = new Enemy(0, 185);
+const enemy5 = new Enemy(0, 225);
 
 // const allEnemies = [enemy];
-const allEnemies = [enemy];
+const allEnemies = [enemy1, enemy2, enemy3, enemy4, enemy5];
 
 
 
