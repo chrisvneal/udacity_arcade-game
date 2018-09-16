@@ -20,6 +20,17 @@ class Enemy {
 
 // let colBoundary = blockWidth * 5;
 
+
+
+
+
+
+
+
+function randomSpeed(min, max) {
+  return Math.floor(Math.random() * (max - min) + min);
+}
+
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
@@ -32,7 +43,12 @@ Enemy.prototype.update = function(dt) {
     this.x += (this.speed * dt);
   } else {
     this.x = -90;
+    this.speed = randomSpeed(50, 300);
   }
+
+
+
+  // When the bug is out of bounds, change the speed
 
 
 
@@ -117,21 +133,6 @@ const player = new Player();
 
 
 
-function randomNumGenerator(purpose) {
-  switch(purpose) {
-    case "startPos":
-      return Math.floor((Math.random() * -200) + 30);
-      break;
-    case "speed":
-      return Math.floor((Math.random() * 5) + 50);
-      break;
-    default:
-      return;
-
-  }
-
-}
-
 
 
 
@@ -142,9 +143,9 @@ function randomNumGenerator(purpose) {
 
 
 // Place all enemy objects in an array called allEnemies
-const enemy1 = new Enemy(randomNumGenerator("startPos"), 60, 90);
-const enemy2 = new Enemy(randomNumGenerator("startPos"), 100, 65);
-const enemy3 = new Enemy(randomNumGenerator("startPos"), 156, 45);
+const enemy1 = new Enemy(83, 60, 90);
+const enemy2 = new Enemy(83, 140, 65);
+const enemy3 = new Enemy(83, 220, 45);
 
 
 // const allEnemies = [enemy];
