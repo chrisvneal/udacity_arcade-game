@@ -61,16 +61,17 @@ let game = {
   addPoints: function(points) {
     this.score += points;
 
-    if (this.score > 2) {
-this.difficulty = "medium";
+    if (game.score > 5) {
+      changeDifficulty("hard");
     }
+    else if (game.score > 2) {
+      changeDifficulty("medium");
+    } 
 
-    if (this.score > 5) {
-      this.difficulty = "hard";
-
-    }
+console.log("Difficulty: " + game.difficulty);
+    
     this.textScore.innerHTML = this.score;
-    console.log("difficulty:" + this.difficulty);
+    // console.log("difficulty:" + this.difficulty);
   },
 
   removeLife: function() {
@@ -124,16 +125,16 @@ function checkCollisions() {
     };
   }
 }
-function adjustDifficulty(difficulty) {
+
+function changeDifficulty(difficulty) {
   switch (difficulty) {
+    
     case "medium":
-      this.speed = Math.floor((Math.random() * (250 - 101)) + 101);
+    game.difficulty = difficulty;
       break;
-    case "hard":
-      this.speed = Math.floor((Math.random() * (500 - 350)) + 350);
+      case "hard":
+    game.difficulty = difficulty;
       break;
-    default:
-      this.speed = Math.floor((Math.random() * (100 - 60)) + 60);
   }
 }
 
@@ -161,7 +162,7 @@ Enemy.prototype.update = function(dt) {
 
   // checkForCollision();
 
-  
+
 
 
 
@@ -170,12 +171,22 @@ Enemy.prototype.update = function(dt) {
   if (this.x >= canvasBoundary) {
     this.x = this.entryPoint - 100;
 
-
-    if (game.score > 5) {
-      adjustDifficulty("hard");
-    } else if (game.score > 2) {
-      adjustDifficulty("medium");
+    if (game.difficulty == "medium") {
+      this.speed = Math.floor((Math.random() * (250 - 101)) + 101);
     }
+
+    if (game.difficulty == "hard") {
+      this.speed = Math.floor((Math.random() * (500 - 350)) + 350);
+    }
+
+    if (game.difficulty == "ultra") {
+      this.speed = Math.floor((Math.random() * (700 - 520)) + 520);
+    }
+
+    
+
+
+    
 
     // this.speed = Math.floor((Math.random() * (450 - 180)) + 100);
     // console.log(this.speed);
