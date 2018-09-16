@@ -37,53 +37,83 @@ class Enemy {
 // }
 
 
+
 let game = {
   score: 0,
+  difficulty: "easy",
   textScore: document.querySelector('.score-text'),
+  textHits: document.querySelector('.hits-text'),
+  lives: document.querySelector('.lives'),
+  livesLost: 0,
 
-
-  addPoints: function(points, callback) {
-    this.score += points;
+  reset: function() {
+    this.score = 0;
     this.textScore.innerHTML = this.score;
 
-    // console.log(callback);
+    player.hits = 0;
 
-    // callback();
+    this.textHits.innerHTML = player.hits;
 
-    // console.log(player.x, player.y);
+    // TODO: Put the hearts back on the page
+
+  },
+
+  addPoints: function(points, ) {
+    this.score += points;
+    this.textScore.innerHTML = this.score;
+  },
+
+  removeLife: function() {
+    // player.hits++;
+    document.querySelector('.hits-text').innerHTML = player.hits;
+
+    if (this.lives.children.length > 0) {
+
+      // remove every other element in the 'array', the 'img' element
+      this.lives.removeChild(this.lives.childNodes[this.livesLost + 1]);
+      this.livesLost += 1;
+    }
   }
+
+  //TODO: Create function for when game is won
 }
-
-// let thresh = 1;
-
-// function checkForCollisions() {
-
-
-//   for (let enemy of allEnemies) {
-//     // console.log(enemy);
-
-
-//   }
-
-// }
-
-
 
 
 
 // check for enemy & player collisions
 
 function checkCollisions() {
-  let thresh = 50;
+  let thresh = 60;
+
   for (let enemy of allEnemies) {
     if (enemy.x < player.x + thresh && enemy.x > player.x - thresh) {
       if (enemy.y < player.y + thresh && enemy.y > player.y - thresh) {
         player.x = player.startXPos;
         player.y = player.startYPos;
+        player.hits++;
+        // document.querySelector('.hits-text').innerHTML = player.hits;
+
+        console.log(player.hits);
+        game.removeLife();
+        
+        if (player.hits == 4) {
+
+          document.querySelector('.hits-text').innerHTML = player.hits;
+          
+
+          alert(`Game over! You were hit ${player.hits} times!`);
+
+
+          game.reset();
+            
+        }
+
+
+
       };
     };
   }
-} // end of checkForCollisions
+} 
 
 
 
@@ -144,30 +174,29 @@ Enemy.prototype.render = function() {
 // a handleInput() method.
 
 
-
+// console.log(game.lives);
 
 class Player {
   constructor() {
-    // this.startXPos = (blockWidth * 2);
-    // this.startYPos = (blockMiddle * 7); 
     this.startXPos = 202;
     this.startYPos = 290.5;
     this.x = this.startXPos;
     this.y = this.startYPos;
     this.sprite = 'images/char-boy.png';
-
-
-
-
-
+    this.hits = 0;
   }
 }
 
 // update position of player on the screen
-// Player.prototype.update = function() {
-//   this.x = newXPosition;
-//   this.y = newYPosition;
-// }
+Player.prototype.update = function() {
+  // this.x = newXPosition;
+  // this.y = newYPosition;
+
+
+  if (player.hits == 4) {
+    game.reset();
+  }
+}
 
 // render the player to the screen
 Player.prototype.render = function() {
@@ -221,7 +250,7 @@ Player.prototype.handleInput = function(direction) {
 
   // console.log("enemy3 position: " + Math.floor(enemy3.x));
 
-  console.log("x: " + this.x + ", y: " + this.y);
+  // console.log("x: " + this.x + ", y: " + this.y);
 
 }
 
