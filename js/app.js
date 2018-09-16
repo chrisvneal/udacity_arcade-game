@@ -62,6 +62,8 @@ Enemy.prototype.update = function(dt) {
   // when enemy leaves the canvas, it enters again at entry point
   if (this.x >= canvasBoundary) {
     this.x = this.entryPoint;
+    this.speed = Math.floor((Math.random() * (400 - 100)) + 100);
+    // console.log(this.speed);
   }
 
   this.x += this.speed * dt;
