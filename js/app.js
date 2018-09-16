@@ -11,14 +11,19 @@ class Enemy {
   constructor(x, y, speed) {
     this.x = x;
     this.y = y;
-    this.speed = Math.floor((Math.random() * 250) + speed);
+    this.entryPoint = -90;
+    this.speed = Math.floor((Math.random() * 100) + speed);
+
+
+
+    
     this.sprite = 'images/enemy-bug.png';
   };
 
 
 };
 
-
+const canvasBoundary = 505;
 
 function randomSpeed(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
@@ -32,12 +37,25 @@ Enemy.prototype.update = function(dt) {
   // all computers.
 
   // When the bug fully steps out canvas boundary, restart
-  if (this.x < blockWidth * 5) {
-    this.x += (this.speed * dt);
-  } else {
-    this.x = -90;
-    this.speed = randomSpeed(70, 300);
-  }
+  // if (this.x < blockWidth * 5) {
+  //   this.x += (this.speed * dt);
+  // } else {
+  //   this.x = -90;
+  //   this.speed = randomSpeed(70, 300);
+  // }
+
+
+  // speed = (pick up by this much, pretty muchh in pixels)
+
+
+
+
+
+  if (this.x >= canvasBoundary) {
+    this.x = this.entryPoint;
+  } 
+
+  this.x += this.speed * dt;
 
 
 
@@ -46,6 +64,8 @@ Enemy.prototype.update = function(dt) {
 
 
 };
+
+console.log(canvasBoundary);
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
@@ -129,21 +149,15 @@ const player = new Player();
 
 
 
-// create the enemies
-
-
-
-
-
-// Place all enemy objects in an array called allEnemies
+// initialize enemies (bugs) with start points and speed
 const enemy1 = new Enemy(-90, 60, 90);
 const enemy2 = new Enemy(-90, 140, 65);
 const enemy3 = new Enemy(-90, 220, 45);
-const enemy4 = new Enemy(-150, 155, 45);
+const enemy4 = new Enemy(-150, 155, 30);
 const enemy5 = new Enemy(-200, 160, 45);
 
 
-// const allEnemies = [enemy];
+// put all enemies into an array
 const allEnemies = [enemy1, enemy2, enemy3, enemy4, enemy5];
 
 
