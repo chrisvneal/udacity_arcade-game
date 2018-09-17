@@ -1,6 +1,27 @@
-frontend-nanodegree-arcade-game
-===============================
+# README
 
-Students should use this [rubric](https://review.udacity.com/#!/projects/2696458597/rubric) for self-checking their submission. Make sure the functions you write are **object-oriented** - either class functions (like Player and Enemy) or class prototype functions such as Enemy.prototype.checkCollisions, and that the keyword 'this' is used appropriately within your class and class prototype functions to refer to the object the function is called upon. Also be sure that the **readme.md** file is updated with your instructions on both how to 1. Run and 2. Play your arcade game.
 
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+
+
+# Front End Nanodegree Project 3: Arcade Game
+This was a project created for Udacity's Front End Nanodegree (FEND) program. What a challenge, but I worked through this project using everything I know about javaScript and Object Oriented Programming, using ES6 syntax! 
+
+I will making improvememnts as necessary to the game, so please check back!
+
+If you have any questions, please contact me!!
+
+## Starting the game
+ The game is already running! To begin playing, simply move the character using any directional arrow _(up, down, left, right)_ on your keyboard.
+
+ ## Goal
+ The goal of the game is to reach the water (the other side) before getting attacked by a cute ladybug!
+
+ ## Game rules
+ * You **LOSE** when you get hit 4 times
+
+ * **3 points** will increase the difficulty to **MEDIUM**, bugs move fast!
+
+ * **6 points** will increase the difficulty to **HARD**, bugs move at super speed! (only for the elite player)!
+
+ Enjoy the game!
+

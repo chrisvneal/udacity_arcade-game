@@ -102,8 +102,6 @@ Enemy.prototype.update = function(dt) {
   if (this.x >= canvasBoundary) {
     this.x = this.entryPoint - 120;
 
-    console.log(game.difficulty);
-
     // change speed based on difficulty
     if (game.difficulty == "easy") {
       this.speed = Math.floor((Math.random() * (100 - 60)) + 60);
