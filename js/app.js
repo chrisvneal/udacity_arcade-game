@@ -55,7 +55,7 @@ let game = {
     switch (difficulty) {
 
       case "easy":
-        game.difficulty = difficulty;        
+        game.difficulty = difficulty;
         break;
       case "medium":
         game.difficulty = difficulty;
@@ -80,16 +80,24 @@ let game = {
   }
 }
 
-/********************* Enemy class & methods *********************/
-class Enemy {
-  constructor(x, y, speed) {
+
+class Character {
+  constructor(x, y, sprite) {
     this.x = x;
     this.y = y;
+    this.sprite = sprite;
+  }
+}
+
+/********************* Enemy class & methods *********************/
+class Enemy extends Character {
+  constructor(x, y, sprite, speed) {
+    super(x, y, sprite);
     this.entryPoint = -90;
     this.speed = speed;
-    this.sprite = 'images/enemy-bug.png';
   }
 };
+
 
 // Update enemy's position,
 Enemy.prototype.update = function(dt) {
@@ -122,13 +130,11 @@ Enemy.prototype.render = function() {
 
 
 /********************* Player class & methods *********************/
-class Player {
-  constructor() {
-    this.startXPos = 202;
-    this.startYPos = 290.5;
-    this.x = this.startXPos;
-    this.y = this.startYPos;
-    this.sprite = 'images/char-boy.png';
+class Player extends Character {
+  constructor(x, y, sprite) {
+    super(x, y, sprite);
+    this.startXPos = this.x;
+    this.startYPos = this.y;
     this.hits = 0;
     this.thresh = 50;
   }
@@ -202,12 +208,12 @@ Player.prototype.hit = function() {
 
 
 /********************* Instantiate player & enemies *********************/
-const player = new Player();
+const player = new Player(202, 290.5, 'images/char-boy.png');
 
 // initialize enemies (bugs) with starting points and speed
-let enemy1 = new Enemy(-90, 41.5, Math.floor((Math.random() * (100 - 60)) + 60));
-let enemy2 = new Enemy(-190, 124.5, Math.floor((Math.random() * (100 - 60)) + 60));
-let enemy3 = new Enemy(-135, 207.5, Math.floor((Math.random() * (100 - 60)) + 60));
+let enemy1 = new Enemy(-90, 41.5, 'images/enemy-bug.png', Math.floor((Math.random() * (100 - 60)) + 60));
+let enemy2 = new Enemy(-190, 124.5, 'images/enemy-bug.png', Math.floor((Math.random() * (100 - 60)) + 60));
+let enemy3 = new Enemy(-135, 207.5, 'images/enemy-bug.png', Math.floor((Math.random() * (100 - 60)) + 60));
 
 // put all enemies into an array, allEnemies
 const allEnemies = [enemy1, enemy2, enemy3];
