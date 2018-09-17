@@ -12,8 +12,6 @@ let game = {
   diffText: document.querySelector('.diff-text'),
 
   reset: function() {
-    // console.log("You did it ");
-    // reset game score to 0, update score text
     this.score = 0;
     this.textScore.innerHTML = this.score;
 
@@ -23,7 +21,6 @@ let game = {
 
     // reset game difficulty back to "easy"
     this.changeDifficulty("easy");
-    // console.log('difficulty is ' + game.difficulty);
   },
 
   addPoints: function() {
@@ -83,8 +80,6 @@ let game = {
   }
 }
 
-
-
 /********************* Enemy class & methods *********************/
 class Enemy {
   constructor(x, y, speed) {
@@ -123,7 +118,6 @@ Enemy.prototype.update = function(dt) {
 // Render enemy
 Enemy.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-  // console.log(randomSpeed());
 };
 
 
@@ -168,7 +162,6 @@ Player.prototype.handleInput = function(direction) {
       break;
     case "up":
       if (this.y == 41.5) {
-        // console.log("Game won!");
 
         game.addPoints(1);
 
