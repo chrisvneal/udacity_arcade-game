@@ -47,26 +47,33 @@ let game = {
   textScore: document.querySelector('.score-text'),
   textHits: document.querySelector('.hits-text'),
   lives: document.querySelector('.lives'),
-  livesLost: 1, // to offset image file location in array
+  hearts: 4, // to offset image file location in array
 
   reset: function() {
+
+    // reset game score to 0, update score text
     this.score = 0;
-
-
-
     this.textScore.innerHTML = this.score;
 
+    // reset player hits to 0, update hits text    
     player.hits = 0;
-
     this.textHits.innerHTML = player.hits;
 
+    // reset # of lives lost
+    this.hearts = 4;
+
+    // reset game difficulty back to "easy"
+    this.changeDifficulty("easy");
 
 
-    if (game.lives.children.length == 0) {
-      game.insertHearts(4);
-      console.log("Game reset; Heart count: " + this.lives.children.length);
 
-    }
+
+
+    // if (game.lives.children.length == 0) {
+    //   game.insertHearts(4);
+    //   console.log("Game reset; Heart count: " + this.lives.children.length);
+
+    // }
     // put the hearts back
 
 
@@ -75,44 +82,54 @@ let game = {
 
   },
 
-  addPoints: function(points) {
-    this.score += points;
-
-    if (game.score > 5) {
-      changeDifficulty("hard");
-    } else if (game.score > 2) {
-      changeDifficulty("medium");
-    }
-
-    // console.log("Difficulty: " + game.difficulty);
-
+  addPoints: function() {
+    // increase score, update score text
+    this.score++;
     this.textScore.innerHTML = this.score;
-    // console.log("difficulty:" + this.difficulty);
+
+    // if score meets criteria, change difficulty
+    if (game.score > 5) {
+      this.changeDifficulty("hard");
+    } else if (game.score > 2) {
+      this.changeDifficulty("medium");
+    }
   },
 
   removeHeart: function() {
-    // player.hits++;
-    document.querySelector('.hits-text').innerHTML = player.hits;
 
-    console.log("node name: " + game.lives.childNodes[0].nodeName);
+
+    this.hearts--;
+
+
+    // console.log("lives lost: " + this.livesLost);
+
+
+
+
+
+
+    // player.hits++;
+    // document.querySelector('.hits-text').innerHTML = player.hits;
+
+    // console.log("node name: " + game.lives.childNodes[0].nodeName);
 
     // remove every other element in the 'array', the 'img' element
 
 
 
-    this.livesLost += 1;
+    // this.livesLost += 1;
 
-    if (this.lives.childNodes[0].nodeName == "IMG") {
-      this.lives.removeChild(this.lives.childNodes[3]);
+    // if (this.lives.childNodes[0].nodeName == "IMG") {
+    //   this.lives.removeChild(this.lives.childNodes[3]);
 
-    } else {
-      console.log("This isn't a child node");
-    }
+    // } else {
+    //   console.log("This isn't a child node");
+    // }
     // this.lives.removeChild(this.lives.childNodes[this.livesLost + 1]);
 
 
 
-    console.log("heart count: " + game.lives.children.length);
+    // console.log("heart count: " + game.lives.children.length);
     // console.log("heart count: "  + this.lives.children.length);
   },
 
@@ -129,149 +146,78 @@ let game = {
     }
   },
 
+  checkCollisions: function() {
+    for (let enemy of allEnemies) {
 
-}
+      // if an enemy is within close range of the player...
+      if ((enemy.x < (player.x + player.thresh) && enemy.x > (player.x - player.thresh)) && (enemy.y < (player.y + player.thresh) && enemy.y > (player.y - player.thresh))) {
 
-game.insertHearts(4);
-
-
-
-// check for enemy & player collisions
-
-// console.log("heart count: "  + game.heartCount);
-// console.log("heart count: "  + game.lives.children.length);
-
-
-function checkCollisions() {
-  let thresh = 50; // hit area threshold
-
-  for (let enemy of allEnemies) {
-
-    // if an enemy is within close range of the player...
-    if (enemy.x < player.x + thresh && enemy.x > player.x - thresh) {
-      if (enemy.y < player.y + thresh && enemy.y > player.y - thresh) {
-
-
-
-
-        // place player back at the start
-        player.backToStart();
-
-
-        // increase player hit count
-        player.hits++;
-
-
-
-
-        // remove a heart (life)
-        game.removeHeart();
-
-
-
-
-
-
-
-        if (player.hits == 4) {
-
-          document.querySelector('.hits-text').innerHTML = player.hits;
-
-
-          // alert(`Game over! You were hit ${player.hits} times!`);
-
-
-          game.reset();
-
-        }
-
-
-
+        // ...the player is hit
+        player.hit();
       };
     };
+  },
+
+  changeDifficulty: function(difficulty) {
+    switch (difficulty) {
+
+      case "easy":
+        game.difficulty = difficulty;
+        break;
+      case "medium":
+        game.difficulty = difficulty;
+        break;
+      case "hard":
+        game.difficulty = difficulty;
+        break;
+    }
   }
 }
+
+// game.insertHearts(4);
+
+
+
+
+
+
+
+
+
+
+
 
 function changeDifficulty(difficulty) {
-  switch (difficulty) {
 
-    case "medium":
-      game.difficulty = difficulty;
-      break;
-    case "hard":
-      game.difficulty = difficulty;
-      break;
-  }
 }
 
 
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
+// Update the enemy's position,
 Enemy.prototype.update = function(dt) {
-  // You should multiply any movement by the dt parameter
-  // which will ensure the game runs at the same speed for
-  // all computers.
-
-  // When the bug fully steps out canvas boundary, restart
-  // if (this.x < blockWidth * 5) {
-  //   this.x += (this.speed * dt);
-  // } else {
-  //   this.x = -90;
-  //   this.speed = randomSpeed(70, 300);
-  // }
-
-
-  // speed = (pick up by this much, pretty muchh in pixels)
-
-
-  // console.log(player.y);
-
-  // checkForCollision();
-
-
-
-
-
-
-  // when enemy leaves the canvas, it enters again at entry point
+  // when enemy leaves the canvas, enter again at entry point
   if (this.x >= canvasBoundary) {
     this.x = this.entryPoint - 100;
 
-    if (game.difficulty == "medium") {
-      this.speed = Math.floor((Math.random() * (250 - 101)) + 101);
+    // change speed based on difficulty
+    if (game.difficulty == "easy") {
+      this.speed = Math.floor((Math.random() * (330 - 60)) + 60);
     }
 
-    if (game.difficulty == "hard") {
+    if (game.difficulty == "medium") {
       this.speed = Math.floor((Math.random() * (500 - 350)) + 350);
     }
 
-    if (game.difficulty == "ultra") {
+    if (game.difficulty == "hard") {
       this.speed = Math.floor((Math.random() * (700 - 520)) + 520);
     }
-
-
-
-
-
-
-    // this.speed = Math.floor((Math.random() * (450 - 180)) + 100);
-    // console.log(this.speed);
-    // game.addPoints(5);
   }
 
+  // adjust final speed
   this.x += this.speed * dt;
-  // this.x += Math.floor((Math.random() * (100 - 30)) + 30) * dt;
-
-
-  // when the enemy leaves the boundary, give a different speed
-
-
-
 };
 
-// console.log(canvasBoundary);
 
-// Draw the enemy on the screen, required method for game
+// Draw the enemy on the screen
 Enemy.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
   // console.log(randomSpeed());
@@ -284,6 +230,8 @@ Enemy.prototype.render = function() {
 
 // console.log(game.lives);
 
+
+/********************* Player class & methods *********************/
 class Player {
   constructor() {
     this.startXPos = 202;
@@ -292,40 +240,27 @@ class Player {
     this.y = this.startYPos;
     this.sprite = 'images/char-boy.png';
     this.hits = 0;
+    this.thresh = 50;
   }
 }
 
-// update position of player on the screen
+// Update position of player 
 Player.prototype.update = function() {
-  // this.x = newXPosition;
-  // this.y = newYPosition;
-
-
   if (player.hits == 4) {
     game.reset();
   }
-
-
-
 }
 
-// render the player to the screen
+// Render the player 
 Player.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
 
-// place the player back at the starting point
-Player.prototype.backToStart = function() {
-  this.x = this.startXPos;
-  this.y = this.startYPos;
-}
-
-// make the player object move when 'keyup' event is fired
+// Make the player object move when 'keyup' event is fired
 Player.prototype.handleInput = function(direction) {
 
   switch (direction) {
     case "left":
-
       if (this.x > 0) {
         this.x -= blockWidth;
       }
@@ -340,12 +275,10 @@ Player.prototype.handleInput = function(direction) {
         // console.log("Game won!");
 
         game.addPoints(1);
-        // console.log("You did it! " + this.y);
 
         setTimeout(function() {
           player.backToStart();
-        }, 510);
-
+        }, 500);
       }
 
       if (this.y > -41.5) {
@@ -358,11 +291,27 @@ Player.prototype.handleInput = function(direction) {
       }
       break;
   }
+}
 
-  // console.log("enemy3 position: " + Math.floor(enemy3.x));
+// Place the player back at the starting point
+Player.prototype.backToStart = function() {
+  this.x = this.startXPos;
+  this.y = this.startYPos;
+}
 
-  // console.log("x: " + this.x + ", y: " + this.y);
+// When a player gets hit
+Player.prototype.hit = function() {
+  // increase player hit count, update hits text
+  player.hits++;
+  game.textHits.innerHTML = player.hits;
 
+  // remove a heart (life)
+  game.removeHeart();
+
+  // place player back at the start
+  player.backToStart();
+
+  player.update();
 }
 
 
@@ -374,57 +323,21 @@ Player.prototype.handleInput = function(direction) {
 
 
 
-// Instantiate objects (create player & enemies)
 
 
-// Place the player object in a variable called player
+// Create player & enemies
 const player = new Player();
 
+// initialize enemies (bugs) with starting points and speed
+let enemy1 = new Enemy(-90, 41.5, Math.floor((Math.random() * (330 - 60)) + 60));
+let enemy2 = new Enemy(-90, 124.5, Math.floor((Math.random() * (330 - 60)) + 60));
+let enemy3 = new Enemy(-90, 207.5, Math.floor((Math.random() * (330 - 60)) + 60));
 
-
-
-
-
-
-// let x = -90;
-// let y = Math.floor((Math.random() * (200 - 60)) + 60);
-// let randomSpeed = Math.floor((Math.random() * (330 - 60)) + 60);
-
-
-
-// Build number of enemies
-
-
-
-// initialize enemies (bugs) with start points and speed
-const enemy1 = new Enemy(-90, 41.5, Math.floor((Math.random() * (330 - 60)) + 60));
-const enemy2 = new Enemy(-90, 124.5, Math.floor((Math.random() * (330 - 60)) + 60));
-const enemy3 = new Enemy(-90, 207.5, Math.floor((Math.random() * (330 - 60)) + 60));
-
-
-// put all enemies into an array
+// put all enemies into an array, allEnemies
 const allEnemies = [enemy1, enemy2, enemy3];
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Handle player movement; add event listener to 'key up'
+// Handle player movement, add event listener to 'key up'
 document.addEventListener('keyup', function(e) {
   var allowedKeys = {
     37: 'left',
