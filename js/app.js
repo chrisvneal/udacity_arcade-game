@@ -23,7 +23,7 @@ let game = {
     this.changeDifficulty("easy");
   },
 
-  addPoints: function() {
+  addPoint: function() {
     // increase score, update score text
     this.score++;
     this.textScore.innerHTML = this.score;
@@ -38,6 +38,10 @@ let game = {
     } else if (game.score > 2) {
       this.changeDifficulty("medium");
     }
+
+    setTimeout(function() {
+      player.backToStart();
+    }, 500);
   },
 
   checkCollisions: function() {
@@ -55,13 +59,13 @@ let game = {
     switch (difficulty) {
 
       case "easy":
-        game.difficulty = difficulty;
+        this.difficulty = difficulty;
         break;
       case "medium":
-        game.difficulty = difficulty;
+        this.difficulty = difficulty;
         break;
       case "hard":
-        game.difficulty = difficulty;
+        this.difficulty = difficulty;
         break;
     }
 
@@ -70,13 +74,13 @@ let game = {
 
   lose: function() {
     alert("4 Hits! You lost!!");
-    game.reset();
+    this.reset();
 
   },
 
   won: function() {
     alert("10 points! You won!!");
-    game.reset();
+    this.reset();
   }
 }
 
@@ -169,12 +173,7 @@ Player.prototype.handleInput = function(direction) {
     case "up":
       if (this.y == 41.5) {
 
-        game.addPoints(1);
-
-        //TODO: Check if you can move player.backToStart
-        setTimeout(function() {
-          player.backToStart();
-        }, 500);
+        game.addPoint();
       }
 
       if (this.y > -41.5) {
