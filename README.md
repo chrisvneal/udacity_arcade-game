@@ -1,10 +1,5 @@
-# README
-
-
-
-
 # Front End Nanodegree Project 3: Arcade Game
-This was a project created for Udacity's Front End Nanodegree (FEND) program. What a challenge, but I worked through this project using everything I know about javaScript and Object Oriented Programming, using ES6 syntax! 
+I created this project for Udacity's Front End Nanodegree (FEND) program. What a challenge, but I worked through this project using literally everything I know about JavaScript and Object Oriented Programming, using ES6 syntax! 
 
 I will making improvememnts as necessary to the game, so please check back!
 
