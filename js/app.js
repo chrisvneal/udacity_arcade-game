@@ -171,6 +171,7 @@ Player.prototype.handleInput = function(direction) {
 
         game.addPoints(1);
 
+        //TODO: Check if you can move player.backToStart
         setTimeout(function() {
           player.backToStart();
         }, 500);
@@ -197,13 +198,13 @@ Player.prototype.backToStart = function() {
 // When a player gets hit
 Player.prototype.hit = function() {
   // increase player hit count, update hits text
-  player.hits++;
-  game.textHits.innerHTML = player.hits;
+  this.hits++;
+  game.textHits.innerHTML = this.hits;
 
   // place player back at the start
-  player.backToStart();
+  this.backToStart();
 
-  player.update();
+  this.update();
 }
 
 

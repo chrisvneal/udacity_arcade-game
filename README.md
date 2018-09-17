@@ -5,6 +5,18 @@ I will making improvememnts as necessary to the game, so please check back!
 
 If you have any questions, please contact me!!
 
+## Loading the game
+
+
+To load/play this game 
+
+* download or clone the files from this repository by clicking the green **Clone or download** button above
+
+* Locate the file _index.html_ from the folder you downloaded and open it in your browser
+
+* _or_ you can [visit and play the Arcade Game here!](https://chrisvneal.github.io/udacity_arcade_game/)
+
+
 ## Starting the game
  The game is already running! To begin playing, simply move the character using any directional arrow _(up, down, left, right)_ on your keyboard.
 
