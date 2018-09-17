@@ -9,12 +9,15 @@ body {
   /* margin: -25px 0 -30px; */
 }
 
-.score, .hits {
+.score, .hits, .difficulty {
   font-family: sans-serif;
   text-transform: lowercase;
   font-weight: lighter;
-  /* border: 1px solid red; */
   flex: 1;
+}
+
+.score-text, .hits-text, .diff-text {
+  font-size: 1.2em;
 }
 
 .gameData {

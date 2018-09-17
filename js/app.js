@@ -9,6 +9,7 @@ let game = {
   difficulty: "easy",
   textScore: document.querySelector('.score-text'),
   textHits: document.querySelector('.hits-text'),
+  diffText: document.querySelector('.diff-text'),
 
   reset: function() {
     // console.log("You did it ");
@@ -57,7 +58,7 @@ let game = {
     switch (difficulty) {
 
       case "easy":
-        game.difficulty = difficulty;
+        game.difficulty = difficulty;        
         break;
       case "medium":
         game.difficulty = difficulty;
@@ -66,6 +67,8 @@ let game = {
         game.difficulty = difficulty;
         break;
     }
+
+    this.diffText.innerHTML = difficulty;
   },
 
   lose: function() {
