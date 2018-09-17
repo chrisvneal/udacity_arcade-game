@@ -1,24 +1,8 @@
 // Place positions in variables
-let blockWidth = 101;
-let blockHeight = 83;
-let blockMiddle = blockHeight / 2;
-
-
-
-
+const blockWidth = 101;
+const blockHeight = 83;
+const blockMiddle = blockHeight / 2;
 const canvasBoundary = 505;
-
-
-
-
-
-
-
-
-
-
-
-
 
 let game = {
   score: 0,
@@ -27,7 +11,7 @@ let game = {
   textHits: document.querySelector('.hits-text'),
 
   reset: function() {
-
+    // console.log("You did it ");
     // reset game score to 0, update score text
     this.score = 0;
     this.textScore.innerHTML = this.score;
@@ -38,12 +22,7 @@ let game = {
 
     // reset game difficulty back to "easy"
     this.changeDifficulty("easy");
-
-
-
-
-
-
+    // console.log('difficulty is ' + game.difficulty);
   },
 
   addPoints: function() {
@@ -53,6 +32,10 @@ let game = {
 
     // if score meets criteria, change difficulty
     if (game.score > 5) {
+      if (game.score == 10) {
+        game.won(this.reset);
+        return;
+      }
       this.changeDifficulty("hard");
     } else if (game.score > 2) {
       this.changeDifficulty("medium");
@@ -61,7 +44,6 @@ let game = {
 
   checkCollisions: function() {
     for (let enemy of allEnemies) {
-
       // if an enemy is within close range of the player...
       if ((enemy.x < (player.x + player.thresh) && enemy.x > (player.x - player.thresh)) && (enemy.y < (player.y + player.thresh) && enemy.y > (player.y - player.thresh))) {
 
@@ -84,14 +66,19 @@ let game = {
         game.difficulty = difficulty;
         break;
     }
+  },
+
+  lose: function() {
+    alert("4 Hits! You lost!!");
+    game.reset();
+
+  },
+
+  won: function() {
+    alert("10 points! You won!!");
+    game.reset();
   }
 }
-
-
-
-
-
-
 
 
 
@@ -110,11 +97,13 @@ class Enemy {
 Enemy.prototype.update = function(dt) {
   // when enemy leaves the canvas, enter again at entry point
   if (this.x >= canvasBoundary) {
-    this.x = this.entryPoint - 100;
+    this.x = this.entryPoint - 120;
+
+    console.log(game.difficulty);
 
     // change speed based on difficulty
     if (game.difficulty == "easy") {
-      this.speed = Math.floor((Math.random() * (330 - 60)) + 60);
+      this.speed = Math.floor((Math.random() * (100 - 60)) + 60);
     }
 
     if (game.difficulty == "medium") {
@@ -222,9 +211,9 @@ Player.prototype.hit = function() {
 const player = new Player();
 
 // initialize enemies (bugs) with starting points and speed
-let enemy1 = new Enemy(-90, 41.5, Math.floor((Math.random() * (330 - 60)) + 60));
-let enemy2 = new Enemy(-190, 124.5, Math.floor((Math.random() * (330 - 60)) + 60));
-let enemy3 = new Enemy(-135, 207.5, Math.floor((Math.random() * (330 - 60)) + 60));
+let enemy1 = new Enemy(-90, 41.5, Math.floor((Math.random() * (100 - 60)) + 60));
+let enemy2 = new Enemy(-190, 124.5, Math.floor((Math.random() * (100 - 60)) + 60));
+let enemy3 = new Enemy(-135, 207.5, Math.floor((Math.random() * (100 - 60)) + 60));
 
 // put all enemies into an array, allEnemies
 const allEnemies = [enemy1, enemy2, enemy3];
