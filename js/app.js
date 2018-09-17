@@ -15,28 +15,7 @@ const canvasBoundary = 505;
 
 
 
-// Enemies our player must avoid
-class Enemy {
-  constructor(x, y, speed) {
-    this.x = x;
-    this.y = y;
-    this.entryPoint = -90;
-    this.speed = speed;
 
-
-
-
-    this.sprite = 'images/enemy-bug.png';
-  };
-
-
-};
-
-
-
-// function randomSpeed(min, max) {
-//   return Math.floor(Math.random() * (max - min) + min);
-// }
 
 
 
@@ -46,8 +25,6 @@ let game = {
   difficulty: "easy",
   textScore: document.querySelector('.score-text'),
   textHits: document.querySelector('.hits-text'),
-  lives: document.querySelector('.lives'),
-  hearts: 4, // to offset image file location in array
 
   reset: function() {
 
@@ -59,22 +36,9 @@ let game = {
     player.hits = 0;
     this.textHits.innerHTML = player.hits;
 
-    // reset # of lives lost
-    this.hearts = 4;
-
     // reset game difficulty back to "easy"
     this.changeDifficulty("easy");
 
-
-
-
-
-    // if (game.lives.children.length == 0) {
-    //   game.insertHearts(4);
-    //   console.log("Game reset; Heart count: " + this.lives.children.length);
-
-    // }
-    // put the hearts back
 
 
 
@@ -92,57 +56,6 @@ let game = {
       this.changeDifficulty("hard");
     } else if (game.score > 2) {
       this.changeDifficulty("medium");
-    }
-  },
-
-  removeHeart: function() {
-
-
-    this.hearts--;
-
-
-    // console.log("lives lost: " + this.livesLost);
-
-
-
-
-
-
-    // player.hits++;
-    // document.querySelector('.hits-text').innerHTML = player.hits;
-
-    // console.log("node name: " + game.lives.childNodes[0].nodeName);
-
-    // remove every other element in the 'array', the 'img' element
-
-
-
-    // this.livesLost += 1;
-
-    // if (this.lives.childNodes[0].nodeName == "IMG") {
-    //   this.lives.removeChild(this.lives.childNodes[3]);
-
-    // } else {
-    //   console.log("This isn't a child node");
-    // }
-    // this.lives.removeChild(this.lives.childNodes[this.livesLost + 1]);
-
-
-
-    // console.log("heart count: " + game.lives.children.length);
-    // console.log("heart count: "  + this.lives.children.length);
-  },
-
-  insertHearts: function(hearts) {
-    for (let i = 0; i < hearts; i++) {
-      let heartImage = "images/Heart.png";
-
-
-
-      let heartElement = document.createElement('img');
-      heartElement.setAttribute('src', heartImage);
-
-      game.lives.appendChild(heartElement);
     }
   },
 
@@ -174,7 +87,6 @@ let game = {
   }
 }
 
-// game.insertHearts(4);
 
 
 
@@ -183,16 +95,18 @@ let game = {
 
 
 
+/********************* Enemy class & methods *********************/
+class Enemy {
+  constructor(x, y, speed) {
+    this.x = x;
+    this.y = y;
+    this.entryPoint = -90;
+    this.speed = speed;
+    this.sprite = 'images/enemy-bug.png';
+  }
+};
 
-
-
-
-function changeDifficulty(difficulty) {
-
-}
-
-
-// Update the enemy's position,
+// Update enemy's position,
 Enemy.prototype.update = function(dt) {
   // when enemy leaves the canvas, enter again at entry point
   if (this.x >= canvasBoundary) {
@@ -216,19 +130,11 @@ Enemy.prototype.update = function(dt) {
   this.x += this.speed * dt;
 };
 
-
-// Draw the enemy on the screen
+// Render enemy
 Enemy.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
   // console.log(randomSpeed());
 };
-
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
-
-
-// console.log(game.lives);
 
 
 /********************* Player class & methods *********************/
@@ -244,14 +150,14 @@ class Player {
   }
 }
 
-// Update position of player 
+// Update player's position 
 Player.prototype.update = function() {
   if (player.hits == 4) {
     game.reset();
   }
 }
 
-// Render the player 
+// Render player 
 Player.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
@@ -305,9 +211,6 @@ Player.prototype.hit = function() {
   player.hits++;
   game.textHits.innerHTML = player.hits;
 
-  // remove a heart (life)
-  game.removeHeart();
-
   // place player back at the start
   player.backToStart();
 
@@ -315,23 +218,13 @@ Player.prototype.hit = function() {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-// Create player & enemies
+/********************* Instantiate player & enemies *********************/
 const player = new Player();
 
 // initialize enemies (bugs) with starting points and speed
 let enemy1 = new Enemy(-90, 41.5, Math.floor((Math.random() * (330 - 60)) + 60));
-let enemy2 = new Enemy(-90, 124.5, Math.floor((Math.random() * (330 - 60)) + 60));
-let enemy3 = new Enemy(-90, 207.5, Math.floor((Math.random() * (330 - 60)) + 60));
+let enemy2 = new Enemy(-190, 124.5, Math.floor((Math.random() * (330 - 60)) + 60));
+let enemy3 = new Enemy(-135, 207.5, Math.floor((Math.random() * (330 - 60)) + 60));
 
 // put all enemies into an array, allEnemies
 const allEnemies = [enemy1, enemy2, enemy3];
