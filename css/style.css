@@ -1,23 +1,5 @@
 body {
-    text-align: center;
-}
-
-.lives img {
-  /* border: 1px solid blue; */
-  width: 50px;
-  height: 60px;
-  /* margin: -25px 0 -30px; */
-}
-
-.score, .hits, .difficulty {
-  font-family: sans-serif;
-  text-transform: lowercase;
-  font-weight: lighter;
-  flex: 1;
-}
-
-.score-text, .hits-text, .diff-text {
-  font-size: 1.2em;
+  text-align: center;
 }
 
 .gameData {
@@ -26,7 +8,17 @@ body {
   margin: 0 auto;
 }
 
-.lives {
-  height: 60px;
-  margin-bottom: -30px;
+.score,
+.hits,
+.difficulty {
+  font-family: sans-serif;
+  text-transform: lowercase;
+  font-weight: lighter;
+  flex: 1;
+}
+
+.score-text,
+.hits-text,
+.diff-text {
+  font-size: 1.2em;
 }
